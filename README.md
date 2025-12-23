@@ -3,19 +3,21 @@
 ![Network Topology](Main%20Window.png)
 
 ## 📌 Project Overview
-This project contains the logical and physical network design for "GlobalTech Solutions" (Which is a fake corp. made-up just for this school assignment). The goal was to build a scalable, secure, and redundant network infrastructure simulated in **Cisco Packet Tracer**.
+In this project, I designed a complete network infrastructure for a made-up company called "GlobalTech Solutions". The goal was to build a network that is secure, redundant, and segmented across three different floors.
 
-**Design Philosophy:**
-I designed the IP addressing scheme to ensure scalability. Floors 1 and 2 utilize **/25 subnets**, while Floor 3 uses **/26**. This decision was made to ensure every department has at least **25% extra capacity** for future growth.
+**My thoughts behind the design:**
+I decided to use **/25 subnets** for Floors 1 and 2, and a **/26 subnet** for Floor 3. Even though this uses more addresses, I wanted to ensure that every department has at least **25% extra capacity** to grow in the future without having to rebuild the network.
 
-## 🛠️ Hardware & Topology
-* **Core Layer:** Cisco 2911 Router (`R_Core`) handling WAN connectivity and EIGRP routing.
-* **Distribution Layer:** 3x Cisco 3560-24PS Layer 3 Switches (`L3SW_V1`, `L3SW_V2`, `L3SW_V3`).
-* **Access Layer:** 10x Cisco 2960 Switches distributed across three floors.
-* **Redundancy:** Layer 3 EtherChannels (LACP) configured between floors for failover protection.
+## 🏗️ How it's built
+The network is supposed to look like a real corporate building with a Core layer, Distribution layer, and Access layer.
 
-## 📡 IP Addressing & VLAN Structure
-The network is segmented into specific VLANs for security and broadcast control:
+* **Core:** A Cisco 2911 Router (`R_Core`) that handles the connection to the Internet (ISP).
+* **Distribution:** Layer 3 Switches (3560) that handle routing between the different floors.
+* **Access:** Cisco 2960 switches where all computers and printers are connected.
+* **Redundancy:** I configured EtherChannels (LACP) between the switches so that if one cable breaks, the network keeps working.
+
+## 📡 IP & VLAN Structure
+I separated the departments into different VLANs to improve security and performance.
 
 | Floor | VLAN | Department | Subnet | Gateway |
 | :--- | :--- | :--- | :--- | :--- |
@@ -28,52 +30,39 @@ The network is segmented into specific VLANs for security and broadcast control:
 | | 51 | Finance | 192.168.30.64/26 | .65 |
 | | 61 | Servers (Backup) | 192.168.31.0/27 | .1 |
 
-## 🔀 Routing Protocols & Design Choices
-The network uses a multi-protocol strategy to simulate a complex enterprise environment. **Floor 2 (`L3SW_V2`) acts as the central redistribution point.**
+## 🔀 Routing Choices
+To make the lab more interesting (and challenging), I used different routing protocols for different parts of the network.
 
-### 1. EIGRP AS 100 (Core)
-* **Scope:** Runs between `R_Core` and all Layer 3 switches.
-* **Reasoning:** Chosen for its fast convergence and easy implementation in the Core. It distributes the default route to all floors.
+**The "Translator" (Floor 2)**
+The Switch on Floor 2 (`L3SW_V2`) is the heart of the routing. It acts as a translator that lets the different protocols talk to each other (Redistribution).
 
-### 2. RIP v2 (Floor 1 ↔ Floor 2)
-* **Link:** `Po12` (192.168.200.0/30)
-* **Reasoning:** Used for the simple Point-to-Point link to separate the segments. *Note: While rarely used in large modern production networks, it was required for the assignment.*
-
-### 3. OSPF Area 0 (Floor 2 ↔ Floor 3)
-* **Link:** `Po13` (192.168.200.4/30)
-* **Reasoning:** Chosen as it is the industry standard for scalable routing with fast neighbor detection.
+1.  **EIGRP (Core):** I chose EIGRP for the central parts because it's very fast and easy to manage on Cisco equipment.
+2.  **OSPF (Floor 3):** Standard protocol used for the connection to the Management floor.
+3.  **RIP v2 (Floor 1):** I used RIP for the link to Floor 1.
+    * *Note: I know RIP is rarely used in large modern networks, but it was required for the school assignment.*
 
 ## 🛡️ Security & Services
-* **SSH v2:** Configured on all devices with RSA 1024-bit keys for secure management.
-* **NAT/PAT:** Configured on `R_Core` (Gig0/0/0) to translate internal traffic to the ISP address (203.0.113.2).
-* **DNS:** Redundant setup with a Primary DNS on Floor 2 and a manually mirrored Backup DNS on Floor 3.
+* **SSH:** Enabled on all devices so I can manage them securely remotely.
+* **NAT/PAT:** Configured on the Core Router to translate internal IP addresses to a public one, allowing internet access.
+* **DNS:** I set up a Primary DNS on Floor 2 and a manually mirrored Backup DNS on Floor 3.
 
 ## 🚀 How to Run
-1.  Ensure you have **Cisco Packet Tracer** installed (Version 8.2.2 is recommended as the file didn't work with 9.0).
-2.  Download the `.pkt` file from this repository.
-3.  Open the file to visualize the topology and inspect the CLI configurations.
-4.  Use the simulation mode to test connectivity (e.g., PING from Marketing PC to Internet Server).
+1.  Download the `.pkt` file from this repository.
+2.  Open it in **Cisco Packet Tracer** (Use version 8.2 because the file doesn't work with 9.0).
+3.  Try pinging from a PC in "Marketing" to the "Internet Server" to see that the routing works.
 
-## 📷 Detailed Topology Views
+## 📷 Detailed Views
 ### Floor 1 (Marketing & Sales)
 ![Floor 1](CLUSTE~2.PNG)
 
-### Floor 2 (IT & Engineering & Server)
+### Floor 2 (IT & Engineering)
 ![Floor 1](CLUSTE~3.PNG)
 
-### Floor 3 (Management & Server)
+### Floor 3 (Management & Server Farm)
 ![Floor 3](CLUSTE~4.PNG)
 
-### ISP & Internet Edge
+### ISP Connection
 ![ISP](CLUSTE~1.PNG)
-
-## 🔍 Verification Commands
-If you run the simulation, use these commands to verify the configuration:
-
-* **Routing:** `show ip route` (Look for 'D' for EIGRP, 'R' for RIP, 'O' for OSPF)
-* **Neighbors:** `show ip eigrp neighbors` | `show ip ospf neighbor`
-* **Redundancy:** `show etherchannel summary` (Check for 'SU' or 'RU' flags)
-* **Connectivity:** `ping dnscore.gts.local`
 
 ---
 *Created by [Jesper Nilsson](https://github.com/JeNilSE)*
