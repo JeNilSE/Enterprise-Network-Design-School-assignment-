@@ -49,7 +49,7 @@ The network uses a multi-protocol strategy to simulate a complex enterprise envi
 * **DNS:** Redundant setup with a Primary DNS on Floor 2 and a manually mirrored Backup DNS on Floor 3.
 
 ## 🚀 How to Run
-1.  Ensure you have **Cisco Packet Tracer** installed (Version 8.2 or newer recommended).
+1.  Ensure you have **Cisco Packet Tracer** installed (Version 8.2.2 is recommended as the file didn't work with 9.0).
 2.  Download the `.pkt` file from this repository.
 3.  Open the file to visualize the topology and inspect the CLI configurations.
 4.  Use the simulation mode to test connectivity (e.g., PING from Marketing PC to Internet Server).
