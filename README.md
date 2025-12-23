@@ -58,6 +58,9 @@ The network uses a multi-protocol strategy to simulate a complex enterprise envi
 ### Floor 1 (Marketing & Sales)
 ![Floor 1](CLUSTE~2.PNG)
 
+### Floor 2 (IT & Engineering)
+![Floor 1](CLUSTE~3.PNG)
+
 ### Floor 3 (Management & Server)
 ![Floor 3](CLUSTE~4.PNG)
 
