@@ -1,21 +1,21 @@
-# GlobalTech Solutions - Enterprise Network Design
+# GlobalTech Solutions - Enterprise Network Design School Project
 
 ![Network Topology](Main%20Window.png)
 
-## 📌 Project Overview
+## 🌄 Project Overview
 This project contains the logical and physical network design for "GlobalTech Solutions" which is a made-up company. The goal was to build a scalable, secure, and redundant network infrastructure simulated in **Cisco Packet Tracer**.
 
 **Design Philosophy:**
-I designed the IP addressing scheme to ensure scalability. Floors 1 and 2 utilize **/25 subnets**, while Floor 3 uses **/26**. This decision was made to ensure every department has at least **25% extra capacity** for future growth.
+I designed the IP addressing scheme with scalability in mind. Floors 1 and 2 uses **/25 subnets**, while Floor 3 uses **/26**. This decision was made to ensure every department has at least **25% extra capacity** for future growth.
 
-## 🛠️ Hardware & Topology
+## 📀 Hardware & Topology
 * **Core Layer:** Cisco 2911 Router (`R_Core`) handling WAN connectivity and EIGRP routing.
 * **Distribution Layer:** 3x Cisco 3560-24PS Layer 3 Switches (`L3SW_V1`, `L3SW_V2`, `L3SW_V3`).
 * **Access Layer:** 10x Cisco 2960 Switches distributed across three floors.
 * **Redundancy:** Layer 3 EtherChannels (LACP) configured between floors for failover protection.
 
-## 📡 IP Addressing & VLAN Structure
-The network is segmented into specific VLANs for security and broadcast control:
+## 💻 IP Addressing & VLAN Structure
+The network is segmented into VLANs for security and control:
 
 | Floor | VLAN | Department | Subnet | Gateway |
 | :--- | :--- | :--- | :--- | :--- |
@@ -28,7 +28,7 @@ The network is segmented into specific VLANs for security and broadcast control:
 | | 51 | Finance | 192.168.30.64/26 | .65 |
 | | 61 | Servers (Backup) | 192.168.31.0/27 | .1 |
 
-## 🔀 Routing Protocols & Design Choices
+## 🛣️ Routing Protocols & Design Choices
 The network uses a multi-protocol strategy to simulate a complex enterprise environment. **Floor 2 (`L3SW_V2`) acts as the central redistribution point.**
 
 ### 1. EIGRP AS 100 (Core)
@@ -43,18 +43,18 @@ The network uses a multi-protocol strategy to simulate a complex enterprise envi
 * **Link:** `Po13` (192.168.200.4/30)
 * **Reasoning:** Chosen as it is the industry standard for scalable routing with fast neighbor detection.
 
-## 🛡️ Security & Services
+## ⛨ Security & Services
 * **SSH v2:** Configured on all devices with RSA 1024-bit keys for secure management.
 * **NAT/PAT:** Configured on `R_Core` (Gig0/0/0) to translate internal traffic to the ISP address (203.0.113.2).
 * **DNS:** Redundant setup with a Primary DNS on Floor 2 and a manually mirrored Backup DNS on Floor 3.
 
-## 🚀 How to Run
+## ᯓ🏃🏻‍♀️‍➡️ How to Run
 1.  Ensure you have **Cisco Packet Tracer** installed (Version 8.2 recommended as the file doesn't work with 9.0).
 2.  Download the `.pkt` file from this repository.
 3.  Open the file to visualize the topology and inspect the CLI configurations.
 4.  Use the simulation mode to test connectivity (e.g., PING from Marketing PC to Internet Server).
 
-## 📷 Detailed Topology Views
+## 🧐** Detailed Topology Views
 ### Floor 1 (Marketing & Sales)
 ![Floor 1](CLUSTE~2.PNG)
 
@@ -67,7 +67,7 @@ The network uses a multi-protocol strategy to simulate a complex enterprise envi
 ### ISP & Internet Edge
 ![ISP](CLUSTE~1.PNG)
 
-## 🔍 Verification Commands
+## 🪪 Verification Commands
 If you run the simulation, use these commands to verify the configuration:
 
 * **Routing:** `show ip route` (Look for 'D' for EIGRP, 'R' for RIP, 'O' for OSPF)
@@ -76,4 +76,4 @@ If you run the simulation, use these commands to verify the configuration:
 * **Connectivity:** `ping dnscore.gts.local`
 
 ---
-*Created by [Jesper Nilsson](https://github.com/JeNilSE)*
+*Created by [Me](https://github.com/JeNilSE)*
