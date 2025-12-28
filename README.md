@@ -54,7 +54,7 @@ The network uses a multi-protocol strategy to simulate a complex enterprise envi
 3.  Open the file to visualize the topology and inspect the CLI configurations.
 4.  Use the simulation mode to test connectivity (e.g., PING from Marketing PC to Internet Server).
 
-## 🧐** Detailed Topology Views
+## 🧐 Detailed Topology Views
 ### Floor 1 (Marketing & Sales)
 ![Floor 1](CLUSTE~2.PNG)
 
