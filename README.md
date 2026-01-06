@@ -1,3 +1,6 @@
+![Cisco Packet Tracer](https://img.shields.io/badge/Cisco_Packet_Tracer-4D6F69?style=for-the-badge&logo=cisco&logoColor=white)
+![Network](https://img.shields.io/badge/Network-0078D4?style=for-the-badge&logo=wi-fi&logoColor=white)
+
 # GlobalTech Solutions - Enterprise Network Design School Project
 
 ![Network Topology](Main%20Window.png)
